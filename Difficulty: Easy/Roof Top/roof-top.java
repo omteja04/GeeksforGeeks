@@ -35,12 +35,12 @@ class Solution {
         for(int i = 1; i < arr.length; i++) {
             if(arr[i] > arr[i - 1]) {
                 curr++;
-            } else {
                 maxConsec = Integer.max(maxConsec, curr);
+            } else {
                 curr = 0;
             }
         }
-        maxConsec = Integer.max(maxConsec, curr);
+        // maxConsec = Integer.max(maxConsec, curr);
         return maxConsec;
     }
 }
