@@ -4,23 +4,25 @@ using namespace std;
 
 
 // } Driver Code Ends
+
 class Solution {
   public:
     int minimizeCost(int k, vector<int>& arr) {
         // Code here
-        vector<int>dp(arr.size(), INT_MAX);
+        int n = arr.size();
+        vector<int> dp(n, INT_MAX);
         dp[0] = 0;
-        for(int i = 1; i < arr.size(); i++) {
+        for(int i = 1; i < n; i++) {
             for(int j = 1; j <= k; j++) {
-                if(i - j>= 0) {
+                if(i >= j) {
                     dp[i] = min(dp[i], dp[i - j] + abs(arr[i] - arr[i - j]));
                 }
             }
         }
-        return dp[arr.size() - 1];
-        
+        return dp[n - 1];
     }
 };
+
 
 //{ Driver Code Starts.
 
@@ -43,6 +45,7 @@ int main() {
         Solution obj;
         int res = obj.minimizeCost(k, arr);
         cout << res << endl;
+        cout << "~" << endl;
         // string tl;
         // getline(cin, tl);
     }
