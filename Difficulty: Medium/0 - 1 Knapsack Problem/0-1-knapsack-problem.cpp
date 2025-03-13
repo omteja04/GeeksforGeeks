@@ -4,24 +4,25 @@ using namespace std;
 
 
 // } Driver Code Ends
+
 class Solution {
   public:
-    // Function to return max value that can be put in knapsack of capacity.
-    int knapSack(int capacity, vector<int> &val, vector<int> &wt) {
+    int knapsack(int W, vector<int> &val, vector<int> &wt) {
         // code here
-        int n = val.size();
-        vector<vector<int>> dp(n + 1, vector<int>(capacity + 1, 0));
+         int n = val.size();
+        vector<vector<int>> dp(n + 1, vector<int>(W + 1, 0));
         for(int i = 1; i  <= n; i++) {
-            for(int w = 1; w <= capacity; w++) {
+            for(int w = 1; w <= W; w++) {
                 dp[i][w] = dp[i - 1][w];
                 if(w >= wt[i - 1]) {
                     dp[i][w] = max(dp[i][w], dp[i  - 1][w - wt[i - 1]] + val[i -  1]);
                 }
             }
         }
-        return dp[n][capacity];
+        return dp[n][W];
     }
 };
+
 
 //{ Driver Code Starts.
 
@@ -60,7 +61,7 @@ int main() {
         }
 
         Solution solution;
-        cout << solution.knapSack(capacity, values, weights) << endl;
+        cout << solution.knapsack(capacity, values, weights) << endl;
         cout << "~" << endl;
     }
     return 0;
