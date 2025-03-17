@@ -6,39 +6,34 @@ using namespace std;
 
 // } Driver Code Ends
 
-
-// User function template for C++
-
 class Solution {
   public:
-    bool backtrack(int i, vector<int> &arr, int target, vector<vector<int>> &dp) {
-        if(i == 0) {
-            if(target == arr[i]) return true;
-            else return false;
+    bool solve(int idx, int sum, vector<int> &arr, vector<vector<int>> &dp) {
+        if(idx == 0) {
+            if(sum == arr[idx]) return 1;
+            return 0;
         }
-        if(target == arr[i]) {
-            return true;
-        }
-        if(dp[i][target] != -1) {
-            return dp[i][target];
-        }
-        bool take = false, notTake = false;
-        if(target >= arr[i]) {
-            take = backtrack(i - 1, arr, target - arr[i], dp);
-        }
-        notTake = backtrack(i - 1, arr, target, dp);
+        if(sum == arr[idx]) return 1;
+        if(dp[idx][sum] != -1) return dp[idx][sum];
         
-        return dp[i][target] = take || notTake;
+        bool pick = false, nonPick = false;
+        
+        if(arr[idx] <= sum) {
+            pick = solve(idx - 1, sum - arr[idx], arr, dp);
+        }
+        nonPick = solve(idx - 1, sum, arr, dp);
+        return dp[idx][sum] = pick || nonPick;
+        
     }
-    bool isSubsetSum(vector<int>& arr, int target) {
+    bool isSubsetSum(vector<int>& arr, int sum) {
         // code here
+        
         int n = arr.size();
-        vector<vector<int>> dp(n, vector<int>(target + 1, -1));
-        return backtrack(n - 1, arr, target, dp);
+        vector<vector<int>> dp(n + 1, vector<int>(sum + 1, -1));
+        return solve(n - 1, sum, arr, dp);
+        
     }
 };
-
-
 
 
 //{ Driver Code Starts.
